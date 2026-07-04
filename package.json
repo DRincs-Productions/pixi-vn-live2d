@@ -41,7 +41,11 @@
     "vite-tsconfig-paths": "^6.1.1"
   },
   "peerDependencies": {
-    "@drincs/pixi-vn": ">=1.5.0"
+    "@drincs/pixi-vn": ">=1.5.13",
+    "untitled-pixi-live2d-engine": "^1.2.2"
+  },
+  "dependencies": {
+    "vitest": "^4.1.4"
   },
   "keywords": [
     "game",
@@ -50,9 +54,7 @@
     "pixi",
     "pixi-vn",
     "visual",
-    "visual-novel"
-  ],
-  "dependencies": {
-    "vitest": "^4.1.4"
-  }
+    "visual-novel",
+    "live2d"
+  ]
 }
