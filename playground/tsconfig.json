@@ -14,7 +14,8 @@
     "strict": true,
     "types": ["node"],
     "paths": {
-      "my-app-package-name": ["../src/index.ts"],
+      "@drincs/pixi-vn-live2d/core": ["../src/core/index.ts"],
+      "@drincs/pixi-vn-live2d": ["../src/index.ts"],
       "@/*": ["../src/*"]
     }
   },

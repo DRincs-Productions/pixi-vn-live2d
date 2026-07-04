@@ -1,22 +1,31 @@
-# Pixi’VN Library Template (tsup + Vitest)
+# Live2D integration for Pixi’VN
 
-This is a template repository for creating visual novel libraries using PixiJS, bundled with `tsup` and tested with `Vitest`. It provides a basic structure to get you started quickly with your own Pixi’VN library.
+`@drincs/pixi-vn-live2d` is a lightweight wrapper around [`untitled-pixi-live2d-engine`](https://github.com/Untitled-Story/untitled-pixi-live2d-engine), designed specifically to integrate **Live2D** models into **Pixi’VN** projects.
 
-## Features
+The library provides Pixi’VN-friendly abstractions for using Live2D models inside visual novels, making it easier to load, manage, and display Live2D content within the Pixi’VN ecosystem.
 
-- TypeScript support for type safety and modern JavaScript features.
-- Bundling with `tsup` for efficient and optimized builds.
-- Testing with `Vitest` for reliable and maintainable code.
-- Pre-configured scripts for building and testing your library.
-- Post-build script to replace Pixi.js imports with Pixi’VN compatible imports.
-- Ready-to-use `package.json` with essential dependencies and configurations.
-- Example source files to demonstrate library structure and usage.
-- GitHub Actions workflow for automated testing on push and pull requests.
-- ESLint configuration for maintaining code quality and consistency.
-- Prettier configuration for consistent code formatting.
-- .gitignore file to exclude unnecessary files from version control.
+## Example
 
-## How build
+```ts
+import { canvas } from "@drincs/pixi-vn";
+import { extensions } from "pixi.js";
+import { Live2DPlugin } from "@drincs/pixi-vn-live2d/core";
+import { Live2D } from "@drincs/pixi-vn-live2d";
+
+// Register the Live2D render pipe before creating the Pixi'VN canvas application
+extensions.add(Live2DPlugin);
+
+const live2d = await Live2D.from({ source: "https://example.com/model/model3.json" });
+live2d.anchor.set(0.5);
+live2d.x = canvas.width / 2;
+live2d.y = canvas.height;
+
+live2d.motion("Idle");
+
+canvas.add("live2d", live2d);
+```
+
+## Build
 
 To build the library, run the following command:
 

@@ -1,6 +1,6 @@
 {
   "name": "@drincs/pixi-vn-live2d",
-  "description": "Spine 2D integration for Pixi'VN",
+  "description": "Live2d integration for Pixi'VN",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -28,6 +28,19 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "default": "./dist/index.mjs"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.js",
+      "require": "./dist/core.js",
+      "default": "./dist/core.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "core": [
+        "./dist/core.d.ts"
+      ]
     }
   },
   "devDependencies": {
