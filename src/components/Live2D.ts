@@ -4,18 +4,18 @@ import { getSuperPivot } from "@/utils/props-utility";
 import {
     addListenerHandler,
     analizePositionsExtensionProps,
-    type AdditionalPositionsExtension,
-    type CanvasBaseItem,
     CanvasPropertyUtility as PropsUtils,
-    type ListenerExtension,
-    type OnEventsHandlers,
     RegisteredCanvasComponents,
     setMemoryContainer,
+    type AdditionalPositionsExtension,
+    type CanvasBaseItem,
+    type ListenerExtension,
+    type OnEventsHandlers,
 } from "@drincs/pixi-vn";
 import {
+    Live2DModel as CoreLive2DModel,
     Live2DFactory,
     type Live2DFactoryOptions,
-    Live2DModel as CoreLive2DModel,
 } from "@drincs/pixi-vn-live2d/core";
 import type {
     ContainerChild,
@@ -72,7 +72,7 @@ export default class Live2D
             ...containerOptions
         } = options;
         const { anchor, align, percentagePosition, ...restOptions } =
-            analizePositionsExtensionProps(containerOptions as any);
+            analizePositionsExtensionProps(containerOptions) || {};
         const setupOptions: Live2DFactoryOptions = {
             checkMocConsistency,
             crossOrigin,
