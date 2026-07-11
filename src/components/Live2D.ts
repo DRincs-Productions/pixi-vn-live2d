@@ -73,25 +73,30 @@ export default class Live2D
         } = options;
         const { anchor, align, percentagePosition, ...restOptions } =
             analizePositionsExtensionProps(containerOptions) || {};
-        const setupOptions: Live2DFactoryOptions = {
-            checkMocConsistency,
-            crossOrigin,
-            onLoad,
-            onError,
-            motionPreload,
-            idleMotionGroup,
-            checkMotionConsistency,
-            breathDepth,
-            lipSyncGain,
-            lipSyncWeight,
-            useHighPrecisionMask,
-            autoUpdate,
-            autoHitTest,
-            autoFocus,
-            autoInteract,
-            ticker,
-            textureOptions,
-        };
+        // Options explicitly set to `undefined` must be omitted rather than forwarded as-is:
+        // the engine merges them via object spread, so an explicit `undefined` overrides
+        // (and breaks) its own internal defaults (e.g. breathDepth) instead of being ignored.
+        const setupOptions: Live2DFactoryOptions = Object.fromEntries(
+            Object.entries({
+                checkMocConsistency,
+                crossOrigin,
+                onLoad,
+                onError,
+                motionPreload,
+                idleMotionGroup,
+                checkMotionConsistency,
+                breathDepth,
+                lipSyncGain,
+                lipSyncWeight,
+                useHighPrecisionMask,
+                autoUpdate,
+                autoHitTest,
+                autoFocus,
+                autoInteract,
+                ticker,
+                textureOptions,
+            }).filter(([, value]) => value !== undefined),
+        );
         super(setupOptions);
         this.sourceAlias = source;
         this.configOptions = setupOptions;
