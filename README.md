@@ -24,8 +24,10 @@ import { Live2D } from "@drincs/pixi-vn-live2d";
 
 // Register the Live2D render pipe before creating the Pixi'VN canvas application
 extensions.add(Live2DPlugin);
+Assets.add({ alias: "haru", src: "https://example.com/model/model3.json" });
 
-const live2d = await Live2D.from({ source: "https://example.com/model/model3.json" });
+const live2d = new Live2D({ source: "haru" });
+await live2d.ready;
 live2d.anchor.set(0.5);
 live2d.x = canvas.width / 2;
 live2d.y = canvas.height;
