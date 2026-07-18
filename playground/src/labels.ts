@@ -18,12 +18,12 @@ Assets.add({
 
 export const baseLabel = newLabel("base", [
     async () => {
-        const live2d = await Live2D.create({
+        const live2d = new Live2D({
             source: "shizuku",
+            align: { x: 0.5, y: 1 },
+            scale: 0.3,
         });
-        live2d.anchor.set(0.5, 1);
-        live2d.scale.set((canvas.height * 0.9) / live2d.height);
-        live2d.position.set(canvas.width / 2, canvas.height);
+        await live2d.ready;
         canvas.add("live2d", live2d);
     },
     ()=>{}
@@ -31,12 +31,12 @@ export const baseLabel = newLabel("base", [
 
 export const motionLabel = newLabel("motion", [
     async () => {
-        const live2d = await Live2D.create({
+        const live2d = new Live2D({
             source: "haru",
+            align: { x: 0.5, y: 1 },
+            scale: 0.3,
         });
-        live2d.anchor.set(0.5, 1);
-        live2d.scale.set((canvas.height * 0.9) / live2d.height);
-        live2d.position.set(canvas.width / 2, canvas.height);
+        await live2d.ready;
         canvas.add("live2d", live2d);
         live2d.motion("Idle", 0);
         canvas.animate(
@@ -53,12 +53,12 @@ export const motionLabel = newLabel("motion", [
 
 export const expressionLabel = newLabel("expression", [
     async () => {
-        const live2d = await Live2D.create({
+        const live2d = new Live2D({
             source: "mao",
+            align: { x: 0.5, y: 1 },
+            scale: 0.3,
         });
-        live2d.anchor.set(0.5, 1);
-        live2d.scale.set((canvas.height * 0.9) / live2d.height);
-        live2d.position.set(canvas.width / 2, canvas.height);
+        await live2d.ready;
         canvas.add("live2d", live2d);
         live2d.motion("Idle", 0);
         await live2d.expression("exp_03");
@@ -72,12 +72,12 @@ export const expressionLabel = newLabel("expression", [
  */
 export const interactiveLabel = newLabel("interactive", [
     async () => {
-        const live2d = await Live2D.create({
+        const live2d = new Live2D({
             source: "mao",
+            align: { x: 0.5, y: 1 },
+            scale: 0.3,
         });
-        live2d.anchor.set(0.5, 1);
-        live2d.scale.set((canvas.height * 0.9) / live2d.height);
-        live2d.position.set(canvas.width / 2, canvas.height);
+        await live2d.ready;
         live2d.eventMode = "static";
         canvas.add("live2d", live2d);
     },

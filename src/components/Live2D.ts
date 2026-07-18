@@ -52,11 +52,8 @@ function resolveSource(source: string): string {
  * // (and so it can be reloaded from memory even if the URL changes later).
  * Assets.add({ alias: "haru", src: "https://example.com/model/model3.json" });
  *
- * const live2d = new Live2D({ source: "haru" });
+ * const live2d = new Live2D({ source: "haru", align: { x: 0.5, y: 1 } });
  * await live2d.ready;
- * live2d.anchor.set(0.5);
- * live2d.x = canvas.width / 2;
- * live2d.y = canvas.height;
  *
  * live2d.motion("Idle");
  *
@@ -118,28 +115,31 @@ export default class Live2D
         super(setupOptions);
         this.sourceAlias = source;
         this.configOptions = setupOptions;
-        setMemoryContainer(this, restOptions);
-        if (anchor !== undefined) {
-            if (typeof anchor === "number") {
-                this.anchor.set(anchor, anchor);
-            } else {
-                this.anchor.set(anchor.x ?? this.anchor.x, anchor.y ?? this.anchor.y);
-            }
-        }
-        if (align) {
-            this.align = align;
-        }
-        if (percentagePosition) {
-            this.percentagePosition = percentagePosition;
-        }
-        this._ready = Live2DFactory.setupLive2DModel(
-            this,
-            resolveSource(source),
-            setupOptions,
-        ).catch((e) => {
-            logger.error(`Failed to load the Live2D model from "${this.sourceAlias}"`, e);
-            throw e;
-        });
+        this._ready = Live2DFactory.setupLive2DModel(this, resolveSource(source), setupOptions)
+            .then(() => {
+                // `align`/`percentagePosition` (and anything `setMemoryContainer` derives from the
+                // model's own width/height) can't be resolved correctly until the model has
+                // finished loading, so every container property is applied here instead of
+                // synchronously in the constructor.
+                setMemoryContainer(this, restOptions);
+                if (anchor !== undefined) {
+                    if (typeof anchor === "number") {
+                        this.anchor.set(anchor, anchor);
+                    } else {
+                        this.anchor.set(anchor.x ?? this.anchor.x, anchor.y ?? this.anchor.y);
+                    }
+                }
+                if (align) {
+                    this.align = align;
+                }
+                if (percentagePosition) {
+                    this.percentagePosition = percentagePosition;
+                }
+            })
+            .catch((e) => {
+                logger.error(`Failed to load the Live2D model from "${this.sourceAlias}"`, e);
+                throw e;
+            });
     }
     readonly pixivnId: string = CANVAS_LIVE2D_ID;
     /**

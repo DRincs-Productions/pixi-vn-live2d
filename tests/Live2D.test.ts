@@ -47,6 +47,40 @@ describe("Live2D options forwarding", () => {
     });
 });
 
+describe("Live2D container options (anchor, align, ...)", () => {
+    afterEach(() => {
+        setupLive2DModelMock.mockClear();
+    });
+
+    it("does not apply anchor synchronously, since width/height aren't known until the model loads", () => {
+        const live2d = new Live2D({ source: "model.json", anchor: 0.5 });
+
+        expect(live2d.anchor.set).not.toHaveBeenCalled();
+    });
+
+    it("applies anchor once `ready` resolves", async () => {
+        const live2d = new Live2D({ source: "model.json", anchor: 0.5 });
+
+        await live2d.ready;
+
+        expect(live2d.anchor.set).toHaveBeenCalledWith(0.5, 0.5);
+    });
+
+    it("does not apply generic container options (e.g. alpha) synchronously either", () => {
+        const live2d = new Live2D({ source: "model.json", alpha: 0.5 });
+
+        expect(live2d.alpha).not.toBe(0.5);
+    });
+
+    it("applies generic container options once `ready` resolves", async () => {
+        const live2d = new Live2D({ source: "model.json", alpha: 0.5 });
+
+        await live2d.ready;
+
+        expect(live2d.alpha).toBe(0.5);
+    });
+});
+
 describe("Live2D on() event forwarding", () => {
     afterEach(() => {
         setupLive2DModelMock.mockClear();
