@@ -116,12 +116,12 @@ export default class Live2D
         this.sourceAlias = source;
         this.configOptions = setupOptions;
         this._ready = Live2DFactory.setupLive2DModel(this, resolveSource(source), setupOptions)
-            .then(() => {
+            .then(async () => {
                 // `align`/`percentagePosition` (and anything `setMemoryContainer` derives from the
                 // model's own width/height) can't be resolved correctly until the model has
                 // finished loading, so every container property is applied here instead of
                 // synchronously in the constructor.
-                setMemoryContainer(this, restOptions);
+                await setMemoryContainer(this, restOptions);
                 if (anchor !== undefined) {
                     if (typeof anchor === "number") {
                         this.anchor.set(anchor, anchor);
