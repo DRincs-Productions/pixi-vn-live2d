@@ -27,7 +27,12 @@ tool, not part of the published library API.
 Install its dependencies with `npm run playground:install`, then start it with
 `npm run playground:dev`. For a production-style build and preview, use `npm run playground:preview`.
 When a change depends on real browser behavior, add or update a focused playground example and
-inspect the result in the browser.
+inspect the result in the browser. Chrome DevTools MCP can be used to inspect and interact with the
+running Playground when that MCP server is available in the agent environment: start the dev server,
+open its local URL in the MCP-controlled browser, and use screenshots, DOM inspection, console and
+network logs, and browser interactions to verify rendering and behavior live. It complements Vitest
+for browser-only behavior; it does not replace Vitest, and it is unavailable unless Chrome DevTools
+MCP is configured and connected.
 
 ## Project skills
 
@@ -45,4 +50,8 @@ npm run skills:validate
 ```
 
 Each skill should live in its own `skills/<name>/SKILL.md` directory and include the required
-frontmatter described by `scripts/validate-skills.mjs`.
+frontmatter described by `scripts/validate-skills.mjs`. Create `skills/getting-started/SKILL.md` as
+the main entry point. Add `skills/categories.json` to map every skill name to a category, following
+`~/lib/pixi-vn/skills/categories.json` and the rules in `scripts/validate-skills.mjs`. Split
+additional skills by API or workflow category when requested. If the extension has an Ink submodule,
+ask the user whether they want a separate Ink skill before creating one.
