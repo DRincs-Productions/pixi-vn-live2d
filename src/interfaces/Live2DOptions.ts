@@ -3,6 +3,12 @@ import type { Live2DFactoryOptions } from "@drincs/pixi-vn-live2d/core";
 
 export default interface Live2DOptions extends Live2DFactoryOptions, ContainerOptions {
     /**
+     * Defines which bounds resolve the normalized anchor. Defaults to the model canvas; set to
+     * `"drawable"` to resolve it against the visible drawable bounds.
+     */
+    anchorMode?: "canvas" | "drawable";
+
+    /**
      * The model settings file URL (e.g. `model.model3.json` or `model.model.json`), or an
      * alias registered with Pixi's `Assets` (e.g. via `Assets.add({ alias, src })`). If
      * `source` matches a registered alias, it is resolved through `Assets`; otherwise it's

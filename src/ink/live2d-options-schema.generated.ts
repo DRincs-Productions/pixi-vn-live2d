@@ -12,6 +12,9 @@
 export const live2DOptionsSchema: object = {
     type: "object",
     properties: {
+        anchorMode: {
+            enum: ["canvas", "drawable"],
+        },
         checkMocConsistency: {
             enum: [false, true],
         },
@@ -38,6 +41,9 @@ export const live2DOptionsSchema: object = {
         },
         lipSyncWeight: {
             type: "number",
+        },
+        eyeBlink: {
+            enum: [false, true],
         },
         useHighPrecisionMask: {
             enum: [false, true, "auto"],
@@ -79,6 +85,7 @@ export const live2DOptionsSchema: object = {
             enum: [
                 "object",
                 "label",
+                "canvas",
                 "a",
                 "abbr",
                 "address",
@@ -94,7 +101,6 @@ export const live2DOptionsSchema: object = {
                 "body",
                 "br",
                 "button",
-                "canvas",
                 "caption",
                 "cite",
                 "code",
@@ -262,68 +268,7 @@ export const live2DOptionsSchema: object = {
             ],
         },
         tint: {
-            anyOf: [
-                {
-                    type: "string",
-                },
-                {
-                    type: "number",
-                },
-                {
-                    type: "object",
-                },
-                {
-                    type: "object",
-                },
-                {
-                    type: "object",
-                },
-                {
-                    type: "object",
-                },
-                {
-                    type: "object",
-                },
-                {
-                    allOf: [
-                        {
-                            type: "object",
-                        },
-                        {
-                            type: "object",
-                        },
-                    ],
-                },
-                {
-                    type: "object",
-                },
-                {
-                    allOf: [
-                        {
-                            type: "object",
-                        },
-                        {
-                            type: "object",
-                        },
-                    ],
-                },
-                {
-                    type: "object",
-                },
-                {
-                    allOf: [
-                        {
-                            type: "object",
-                        },
-                        {
-                            type: "object",
-                        },
-                    ],
-                },
-                {
-                    type: "object",
-                },
-            ],
+            type: ["string", "number", "object"],
         },
         alpha: {
             type: "number",
@@ -481,14 +426,7 @@ export const live2DOptionsSchema: object = {
                     const: "grabbing",
                 },
                 {
-                    allOf: [
-                        {
-                            type: "string",
-                        },
-                        {
-                            type: "object",
-                        },
-                    ],
+                    type: "string",
                 },
             ],
         },

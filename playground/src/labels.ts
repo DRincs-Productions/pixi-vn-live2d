@@ -20,6 +20,7 @@ export const baseLabel = newLabel("base", [
     async () => {
         const live2d = new Live2D({
             source: "shizuku",
+            anchorMode: "drawable",
             xAlign: 0.5,
             yAlign: 1,
             scale: 0.3,
@@ -28,6 +29,70 @@ export const baseLabel = newLabel("base", [
         canvas.add("live2d", live2d);
     },
     ()=>{}
+]);
+
+export const alignmentTestsLabel = newLabel("alignment-tests", [
+    async () => {
+        const live2d = new Live2D({
+            source: "shizuku",
+            anchorMode: "drawable",
+            xAlign: 0.5,
+            yAlign: 1,
+            scale: 0.3,
+        });
+        await live2d.ready;
+        await live2d.motion("Idle", 0);
+        canvas.add("live2d", live2d);
+    },
+    async () => {
+        canvas.clear();
+        const live2d = new Live2D({ source: "shizuku", anchorMode: "drawable", scale: 0.3 });
+        await live2d.ready;
+        await live2d.motion("Idle", 0);
+        canvas.add("live2d", live2d);
+        live2d.xAlign = 0.5;
+        live2d.yAlign = 1;
+    },
+    async () => {
+        canvas.clear();
+        const live2d = new Live2D({ source: "shizuku", anchorMode: "drawable", scale: 0.3 });
+        await live2d.ready;
+        await live2d.motion("Idle", 0);
+        canvas.add("live2d", live2d);
+        live2d.align = { x: 0.5, y: 1 };
+    },
+    async () => {
+        canvas.clear();
+        const live2d = new Live2D({ source: "shizuku", anchorMode: "drawable" });
+        await live2d.ready;
+        await live2d.motion("Idle", 0);
+        live2d.scale.set(0.3);
+        live2d.anchor.set(0.5, 1);
+        live2d.position.set(canvas.width / 2, canvas.height);
+        canvas.add("live2d", live2d);
+    },
+    async () => {
+        canvas.clear();
+        const live2d = new Live2D({
+            source: "shizuku",
+            anchorMode: "canvas",
+            xAlign: 0.5,
+            yAlign: 1,
+            scale: 0.3,
+        });
+        await live2d.ready;
+        await live2d.motion("Idle", 0);
+        canvas.add("live2d", live2d);
+    },
+    async () => {
+        canvas.clear();
+        const live2d = new Live2D({ source: "shizuku", anchorMode: "canvas", scale: 0.3 });
+        await live2d.ready;
+        await live2d.motion("Idle", 0);
+        canvas.add("live2d", live2d);
+        live2d.xAlign = 0.5;
+        live2d.yAlign = 1;
+    },
 ]);
 
 export const motionLabel = newLabel("motion", [

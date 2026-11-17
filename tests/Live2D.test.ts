@@ -45,6 +45,15 @@ describe("Live2D options forwarding", () => {
         expect(setupOptions.breathDepth).toBe(2);
         expect(setupOptions.autoFocus).toBe(false);
     });
+
+    it("defaults anchorMode to canvas and preserves an explicit drawable mode", () => {
+        new Live2D({ source: "model.json" });
+        expect(setupLive2DModelMock.mock.calls[0][2].anchorMode).toBe("canvas");
+
+        setupLive2DModelMock.mockClear();
+        new Live2D({ source: "model.json", anchorMode: "drawable" });
+        expect(setupLive2DModelMock.mock.calls[0][2].anchorMode).toBe("drawable");
+    });
 });
 
 describe("Live2D container options (anchor, align, ...)", () => {

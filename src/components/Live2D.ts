@@ -67,6 +67,7 @@ export default class Live2D
     constructor(options: Live2DOptions) {
         const {
             source,
+            anchorMode,
             checkMocConsistency,
             crossOrigin,
             onLoad,
@@ -94,6 +95,7 @@ export default class Live2D
         const setupOptions: Live2DFactoryOptions = Object.fromEntries(
             Object.entries({
                 checkMocConsistency,
+                anchorMode: anchorMode ?? "canvas",
                 crossOrigin,
                 onLoad,
                 onError,
@@ -148,11 +150,45 @@ export default class Live2D
     readonly sourceAlias: string;
     private readonly configOptions: Live2DFactoryOptions;
     private readonly _ready: Promise<void>;
+    private _alignRefreshScheduled = false;
     /**
      * Promise that resolves once the model resources have been loaded and it's safe to be manipulated/rendered.
      */
     get ready(): Promise<void> {
         return this._ready;
+    }
+    /**
+     * The engine may expose canvas-sized fallback bounds until its first render. Reapply
+     * alignment once the render pipe has replaced those bounds with the drawable bounds.
+     * TODO: When upgrading untitled-pixi-live2d-engine, check whether drawableBoundsUpdated
+     * (or an equivalent bounds-change event) is available and can replace this render-timing
+     * workaround. Proposal: https://github.com/DRincs-Productions/untitled-pixi-live2d-engine/pull/1
+     */
+    private reloadAlignAfterDrawableBoundsUpdate() {
+        if (this._alignRefreshScheduled) return;
+        this._alignRefreshScheduled = true;
+        const previousOnRender = this.onRender;
+        let hasRendered = false;
+        let refreshed = false;
+        const refreshOnRender: NonNullable<typeof this.onRender> = (renderer) => {
+            previousOnRender?.call(this, renderer);
+            if (refreshed) return;
+            if (!hasRendered) {
+                hasRendered = true;
+                return;
+            }
+            refreshed = true;
+            if (this._align) this.reloadPosition();
+            // Removing an onRender callback while Pixi iterates its list can skip another
+            // container's callback. Restore it after that iteration, preserving later edits.
+            queueMicrotask(() => {
+                if (this.onRender === refreshOnRender) {
+                    this.onRender = previousOnRender ?? null;
+                }
+                this._alignRefreshScheduled = false;
+            });
+        };
+        this.onRender = refreshOnRender;
     }
     private _currentExpressionId?: number | string;
     /**
@@ -351,6 +387,7 @@ export default class Live2D
             if (value.y !== undefined) this._align.y = value.y;
         }
         this.reloadPosition();
+        this.reloadAlignAfterDrawableBoundsUpdate();
     }
     get align() {
         const superPivot = getSuperPivot(this);
@@ -381,6 +418,7 @@ export default class Live2D
         if (this._align === undefined) this._align = {};
         this._align.x = value;
         this.reloadPosition();
+        this.reloadAlignAfterDrawableBoundsUpdate();
     }
     get xAlign() {
         const superPivot = getSuperPivot(this);
@@ -401,6 +439,7 @@ export default class Live2D
         if (this._align === undefined) this._align = {};
         this._align.y = value;
         this.reloadPosition();
+        this.reloadAlignAfterDrawableBoundsUpdate();
     }
     get yAlign() {
         const superPivot = getSuperPivot(this);
