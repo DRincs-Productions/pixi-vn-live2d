@@ -1,8 +1,6 @@
 # Live2D integration for Pixi’VN
 
-![pixi-vn-cover](https://github.com/user-attachments/assets/5ff318a6-51ac-47a4-a5d2-fac53edc9614)
-
-<p align="center">
+<p align="left">
   <a href="https://www.npmjs.com/package/@drincs/pixi-vn-live2d" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/npm/v/@drincs/pixi-vn-live2d?label=version" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/@drincs/pixi-vn-live2d" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/npm/dm/@drincs/pixi-vn-live2d" alt="npm downloads per month"></a>
   <a target="_blank" href="https://www.jsdelivr.com/package/npm/@drincs/pixi-vn-live2d" rel="noopener noreferrer nofollow"><img alt="jsDelivr hits (npm)" src="https://img.shields.io/jsdelivr/npm/hm/@drincs/pixi-vn-live2d?logo=jsdeliver"></a>
