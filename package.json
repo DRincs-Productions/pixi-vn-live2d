@@ -1,7 +1,7 @@
 {
   "name": "@drincs/pixi-vn-live2d",
   "description": "Live2d integration for Pixi'VN",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.14",
+    "@drincs/pixi-vn-ink": "^1.1.8",
     "@drincs/pixi-vn-json": "^1.13.17",
     "jsdom": "^27.4.0",
     "ts-node": "^10.9.2",

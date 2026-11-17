@@ -1,4 +1,5 @@
 ---
+
 name: pixi-vn-live2d
 description: Install and use @drincs/pixi-vn-live2d in Pixi'VN projects. Covers Cubism runtime setup, registering the render pipe, loading model sources, Live2D readiness, positioning, expressions, motions and saved state. For Live2D commands in .ink files, also read pixi-vn-live2d-ink.
 ---

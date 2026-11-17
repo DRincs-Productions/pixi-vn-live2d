@@ -1,4 +1,5 @@
 ---
+
 name: pixi-vn-live2d-ink
 description: Show, edit and remove Live2D models, change expressions and play or stop motions from Pixi'VN .ink scripts. Covers createLive2DHandler from @drincs/pixi-vn-live2d/ink, source aliases, command syntax and transitions. Read pixi-vn-live2d for runtime setup and the TypeScript component.
 ---
