@@ -44,3 +44,33 @@ To build the library, run the following command:
 ```bash
 npm run build
 ```
+
+## Agent Skills
+
+Pixi’VN Live2D includes [Agent Skills](https://www.skills.sh/) for AI coding assistants,
+covering the TypeScript integration and Ink commands.
+
+**Codex**:
+
+```bash
+npx skills@latest add DRincs-Productions/pixi-vn-live2d@latest --skill '*' --agent codex -g -y
+```
+
+**Claude Code**:
+
+```bash
+npx skills@latest add DRincs-Productions/pixi-vn-live2d@latest --skill '*' --agent claude-code -g -y
+```
+
+**Other agents**:
+
+```bash
+npx skills@latest add DRincs-Productions/pixi-vn-live2d@latest --all -y
+```
+
+Available skills:
+
+- [pixi-vn-live2d](skills/getting-started/SKILL.md) — runtime setup, model loading,
+  positioning, expressions, motions and saved state.
+- [pixi-vn-live2d-ink](skills/ink/SKILL.md) — registering and using Live2D Ink
+  commands, source aliases and entrance/exit transitions.
