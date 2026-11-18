@@ -2,8 +2,7 @@ import { live2DOptionsSchema } from "@/ink/live2d-options-schema.generated";
 import { logger } from "@/utils/log-utility";
 import { canvas } from "@drincs/pixi-vn";
 import { HashtagCommands } from "@drincs/pixi-vn-ink";
-import { Live2D } from "@drincs/pixi-vn-live2d";
-import type { Live2DOptions } from "@drincs/pixi-vn-live2d";
+import type { Live2D, Live2DOptions } from "@drincs/pixi-vn-live2d";
 import type { MotionPriority } from "@drincs/pixi-vn-live2d/core";
 import {
     containerMemorySchema,
@@ -146,6 +145,8 @@ async function runShowLive2D(
         }
     }
 
+    // Vite loads Ink command definitions in Node, before the browser runtime is available.
+    const { Live2D } = await import("@drincs/pixi-vn-live2d");
     const live2d = new Live2D({
         ...(props as Partial<Live2DOptions>),
         source,
