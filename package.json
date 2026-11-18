@@ -1,7 +1,7 @@
 {
   "name": "@drincs/pixi-vn-live2d",
   "description": "Live2d integration for Pixi'VN",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
